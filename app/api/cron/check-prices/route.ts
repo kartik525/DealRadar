@@ -48,12 +48,14 @@ export async function POST(request: any) {
                 const newPrice = parseFloat(productData.currentPrice);
                 const oldPrice = parseFloat(product.current_price);
 
+                console.log(product, productData, "checking price");
+
                 await supabase.from("products").update({
                     current_price: newPrice,
                     updated_at: new Date().toISOString(),
-                    currency: productData.currency || product.currency,
-                    image_url: productData.image_url || product.image_url,
-                    name: productData.name || product.name,
+                    currency: productData.currencyCode || product.currency,
+                    image_url: productData.productImageUrl || product.image_url,
+                    name: productData.productName || product.name,
 
                 }).eq("id", product.id);
 
@@ -67,6 +69,8 @@ export async function POST(request: any) {
                     results.priceChanges += 1;
                     if (newPrice < oldPrice) {
                         const { data: { user } }: any = await supabase.auth.admin.getUserById(product.user_id);
+                        console.log(user, "user");
+
 
                         if (user?.email) {
 
