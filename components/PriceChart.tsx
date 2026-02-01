@@ -29,7 +29,7 @@ const PriceChart = ({ productId }: any) => {
     console.log(data, "dataa");
 
     return (
-        <div>
+        <>
             {loading ? (
                 <p>Loading chart...</p>
             ) : data.length === 0 ? (
@@ -70,7 +70,7 @@ const PriceChart = ({ productId }: any) => {
                     </LineChart>
                 </div>}
 
-        </div>
+        </>
     )
 }
 
